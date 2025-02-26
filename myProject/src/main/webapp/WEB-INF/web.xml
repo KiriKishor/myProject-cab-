@@ -1,16 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<element> 
-<web-app xmlns="http://java.sun.com/xml/ns/javaee" version="3.1">
-    <!-- Optional: Servlet configuration (handled by @WebServlet annotation) -->
-    <servlet>
-        <servlet-name>RegisterServlet</servlet-name>
-        <servlet-class>Servlet.RegisterServlet</servlet-class>
-    </servlet>
+<element>
+    <web-app xmlns="http://java.sun.com/xml/ns/javaee" version="3.1">
+        
+        <!-- RegisterServlet Configuration -->
+        <servlet>
+            <servlet-name>RegisterServlet</servlet-name>
+            <servlet-class>Servlet.RegisterServlet</servlet-class>
+        </servlet>
+        <servlet-mapping>
+            <servlet-name>RegisterServlet</servlet-name>
+            <url-pattern>/RegisterServlet</url-pattern>
+        </servlet-mapping>
 
-    <servlet-mapping>
-        <servlet-name>RegisterServlet</servlet-name>
-        <url-pattern>/RegisterServlet</url-pattern>
-    </servlet-mapping>
-</web-app>
+        <!-- AdminLoginServlet Configuration -->
+        <servlet>
+            <servlet-name>AdminLoginServlet</servlet-name>
+            <servlet-class>Servlet.AdminLoginServlet</servlet-class>
+        </servlet>
+        <servlet-mapping>
+            <servlet-name>AdminLoginServlet</servlet-name>
+            <url-pattern>/AdminLoginServlet</url-pattern>
+        </servlet-mapping>
+
+    </web-app>
 </element>

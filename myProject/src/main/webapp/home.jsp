@@ -55,7 +55,6 @@
         <a href="menu.jsp">Menu</a>
         <a href="booking.jsp">Booking</a>
         <a href="orders.jsp">Orders</a>
-        <a href="printBill.jsp">Print Bill</a>
         <a href="help.jsp">Help</a>
         <a href="LogoutServlet" class="navbar-right">Logout</a>
     </div>
