@@ -58,6 +58,7 @@
         <h1>Welcome, <%= adminUser %>!</h1>
         <p>You have successfully logged in to the Admin Dashboard.</p>
 
+        <!-- Updated Booking Button to call Servlet -->
         <a href="adminViewBookings.jsp" class="btn btn-bookings">Bookings</a>
         <a href="adminViewMessages.jsp" class="btn btn-messages">Messages</a>
         <a href="adminLogout.jsp" class="btn btn-logout">Logout</a>

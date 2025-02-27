@@ -1,15 +1,15 @@
 package Dao;
 
 import Bean.BookingBean;
-
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BookingDAO {
     private static final String URL = "jdbc:mysql://localhost:3306/cab";
     private static final String USER = "root";
-    private static final String PASSWORD = "123456789";  // Change to your DB password
+    private static final String PASSWORD = "123456789";  // Change to your actual DB password
 
-    // Database connection method
     private Connection connect() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -20,7 +20,7 @@ public class BookingDAO {
         }
     }
 
-    // Insert booking into the database
+    // Insert a new booking into the database
     public boolean saveBooking(BookingBean booking) {
         Connection conn = connect();
         if (conn == null) return false;
@@ -49,5 +49,64 @@ public class BookingDAO {
             e.printStackTrace();
             return false;
         }
+    }
+
+    // Retrieve all bookings of a specific username
+    public List<BookingBean> getBookingsByUsername(String username) {
+        List<BookingBean> bookings = new ArrayList<>();
+        Connection conn = connect();
+        if (conn == null) return bookings;
+
+        try {
+            String sql = "SELECT * FROM bookings WHERE username = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                BookingBean booking = new BookingBean(
+                        rs.getInt("booking_number"),
+                        rs.getString("username"),
+                        rs.getString("mobile_no"),
+                        rs.getString("starting_point"),
+                        rs.getString("finishing_point"),
+                        rs.getDouble("distance")
+                );
+                bookings.add(booking);
+            }
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return bookings;
+    }
+
+    // Retrieve all bookings (for admin or report purposes)
+    public List<BookingBean> getAllBookings() {
+        List<BookingBean> bookings = new ArrayList<>();
+        Connection conn = connect();
+        if (conn == null) return bookings;
+
+        try {
+            String sql = "SELECT * FROM bookings";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                BookingBean booking = new BookingBean(
+                        rs.getInt("booking_number"),
+                        rs.getString("username"),
+                        rs.getString("mobile_no"),
+                        rs.getString("starting_point"),
+                        rs.getString("finishing_point"),
+                        rs.getDouble("distance")
+                );
+                bookings.add(booking);
+            }
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return bookings;
     }
 }

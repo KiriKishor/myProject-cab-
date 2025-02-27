@@ -1,6 +1,6 @@
 package Bean;
 
-public class BookingBean {
+public class AdminViewBookingsBean {
     private int bookingNumber;
     private String username;
     private String mobileNo;
@@ -8,10 +8,10 @@ public class BookingBean {
     private String finishingPoint;
     private double distance;
 
-    public BookingBean() {
+    public AdminViewBookingsBean() {
     }
 
-    public BookingBean(int bookingNumber, String username, String mobileNo, String startingPoint, String finishingPoint, double distance) {
+    public AdminViewBookingsBean(int bookingNumber, String username, String mobileNo, String startingPoint, String finishingPoint, double distance) {
         this.bookingNumber = bookingNumber;
         this.username = username;
         this.mobileNo = mobileNo;
