@@ -49,6 +49,23 @@
             font-size: 18px;
             margin-top: 20px;
         }
+        
+        .back-button {
+            margin-top: 20px;
+        }
+        .back-button button {
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+        .back-button button:hover {
+            background: #0056b3;
+        }
+        
     </style>
 </head>
 <body>
@@ -96,6 +113,12 @@
         <%
             }
         %>
+        
+        <!-- Back Button -->
+    <div class="back-button">
+        <button onclick="window.location.href='adminDashboard.jsp'">Back to Dashboard</button>
+    </div>
+        
     </div>
 </body>
 </html>

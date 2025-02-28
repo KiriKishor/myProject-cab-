@@ -1,17 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="java.util.List" %>
-<%@ page import="Bean.BookingBean" %>
-
-<%
-    if (request.getAttribute("bookings") == null) {
-        response.sendRedirect("OrdersServlet");
-        return;
-    }
-%>
-
+<%@ page import="java.sql.*" %>
 <html>
 <head>
-    <title>Orders</title>
+    <title>Admin - View Messages</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -42,18 +33,19 @@
             text-align: left;
         }
         th {
-            background: #007bff;
+            background: #28a745;
             color: white;
         }
         tr:nth-child(even) {
             background: #f2f2f2;
         }
+        
         .back-button {
             margin-top: 20px;
         }
         .back-button button {
             padding: 10px 20px;
-            background: #28a745;
+            background: #007bff;
             color: white;
             border: none;
             cursor: pointer;
@@ -61,46 +53,64 @@
             border-radius: 5px;
         }
         .back-button button:hover {
-            background: #1e7e34;
+            background: #0056b3;
         }
+        
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>Orders (Bookings)</h2>
+    <h2>Admin - View Help Messages</h2>
     
     <table>
         <tr>
-            <th>Booking No</th>
-            <th>Username</th>
-            <th>Mobile No</th>
-            <th>Starting Point</th>
-            <th>Finishing Point</th>
-            <th>Distance (km)</th>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Message</th>
+            <th>Received At</th>
         </tr>
 
         <%
-            List<BookingBean> bookings = (List<BookingBean>) request.getAttribute("bookings");
-            for (BookingBean b : bookings) {
+            try {
+                // Database connection
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cab", "root", "123456789");
+
+                // Fetch all messages
+                String sql = "SELECT * FROM help_messages";
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                ResultSet rs = stmt.executeQuery();
+
+                // Display messages in table
+                while (rs.next()) {
         %>
-                <tr>
-                    <td><%= b.getBookingNumber() %></td>
-                    <td><%= b.getUsername() %></td>
-                    <td><%= b.getMobileNo() %></td>
-                    <td><%= b.getStartingPoint() %></td>
-                    <td><%= b.getFinishingPoint() %></td>
-                    <td><%= b.getDistance() %></td>
-                </tr>
+                    <tr>
+                        <td><%= rs.getInt("id") %></td>
+                        <td><%= rs.getString("name") %></td>
+                        <td><%= rs.getString("message") %></td>
+                        <td><%= rs.getTimestamp("created_at") %></td>
+                    </tr>
+        <%
+                }
+                // Close connections
+                rs.close();
+                stmt.close();
+                conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+        %>
+                <tr><td colspan="4" style="color:red;">Error fetching messages. Check database connection.</td></tr>
         <%
             }
         %>
     </table>
-
+    
     <!-- Back Button -->
     <div class="back-button">
         <button onclick="window.location.href='adminDashboard.jsp'">Back to Dashboard</button>
     </div>
+    
 </div>
 
 </body>

@@ -1,24 +1,133 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="java.util.*, Bean.DriverBean, Bean.CabBean" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.List, java.util.ArrayList" %>
+<%@ page import="Bean.DriverBean" %>
+<%@ page import="Bean.CabBean" %>
+
+<%
+    if (request.getAttribute("drivers") == null || request.getAttribute("cabs") == null) {
+        response.sendRedirect("MenuServlet");
+        return;
+    }
+%>
+
+
 <html>
 <head>
     <title>Menu Page</title>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            text-align: center;
+        }
+        
+        /* Navbar Styles */
+        .navbar {
+            background-color: #0072ff;
+            overflow: hidden;
+        }
+
+        .navbar a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .navbar a:hover {
+            background-color: #005bb5;
+            color: white;
+        }
+
+        .navbar-right {
+            float: right;
+        }
+        
+        h2 {
+            color: #007bff;
+            margin-top: 30px;
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        img {
+            width: 100px;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+    
 </head>
 <body>
-    <h1>Driver Details</h1>
-    <c:forEach var="driver" items="${drivers}">
-        <p>Name: ${driver.name}</p>
-        <p>Address: ${driver.address}</p>
-        <p>NIC: ${driver.nicNo}</p>
-        <img src="${driver.imagePath}" alt="Driver Image" width="100"/>
-    </c:forEach>
 
-    <h1>Cab Details</h1>
-    <c:forEach var="cab" items="${cabs}">
-        <p>Model: ${cab.model}</p>
-        <p>Cab Number: ${cab.cabNumber}</p>
-        <p>Seats: ${cab.numSeats}</p>
-        <img src="${cab.imagePath}" alt="Cab Image" width="100"/>
-    </c:forEach>
+	 <!-- Navbar -->
+    <div class="navbar">
+        <a href="home.jsp">Home</a>
+        <a href="menu.jsp">Menu</a>
+        <a href="booking.jsp">Booking</a>
+        <a href="help.jsp">Help</a>
+        <a href="LogoutServlet" class="navbar-right">Logout</a>
+    </div>
+    
+    <h2>Drivers List</h2>
+    <%
+        // Ensure drivers list is never null to prevent NullPointerException
+        List<DriverBean> drivers = (List<DriverBean>) request.getAttribute("drivers");
+        if (drivers == null) {
+            drivers = new ArrayList<>();
+        }
+    %>
+    <table border="1">
+        <tr><th>Name</th><th>Address</th><th>NIC</th><th>Image</th></tr>
+        <% for (DriverBean d : drivers) { %>
+            <tr>
+                <td><%= d.getName() %></td>
+                <td><%= d.getAddress() %></td>
+                <td><%= d.getNicNo() %></td>
+                <td><img src="<%= request.getContextPath() %>/<%= d.getImage() %>" width="100"></td>
+            </tr>
+        <% } %>
+    </table>
+
+    <h2>Cabs List</h2>
+    <%
+        // Ensure cabs list is never null to prevent NullPointerException
+        List<CabBean> cabs = (List<CabBean>) request.getAttribute("cabs");
+        if (cabs == null) {
+            cabs = new ArrayList<>();
+        }
+    %>
+    <table border="1">
+        <tr><th>Model</th><th>Cab Number</th><th>Seats</th><th>Image</th></tr>
+        <% for (CabBean c : cabs) { %>
+            <tr>
+                <td><%= c.getModel() %></td>
+                <td><%= c.getCabNumber() %></td>
+                <td><%= c.getSeats() %></td>
+                <td><img src="<%= request.getContextPath() %>/<%= c.getImage() %>" width="100"></td>
+            </tr>
+        <% } %>
+    </table>
 </body>
 </html>
