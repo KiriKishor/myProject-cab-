@@ -60,7 +60,9 @@
 
         <!-- Updated Booking Button to call Servlet -->
         <a href="adminViewBookings.jsp" class="btn btn-bookings">Bookings</a>
+        <a href="adminViewMenu.jsp" class="btn btn-bookings">Menu</a>
         <a href="adminViewMessages.jsp" class="btn btn-messages">Messages</a>
+        <a href="adminViewRequest.jsp" class="btn btn-messages">Requests</a>
         <a href="adminLogout.jsp" class="btn btn-logout">Logout</a>
     </div>
 </body>

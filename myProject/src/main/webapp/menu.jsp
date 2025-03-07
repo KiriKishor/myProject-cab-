@@ -24,23 +24,25 @@
         
         /* Navbar Styles */
         .navbar {
-            background-color: #0072ff;
+            background-color: #415999;
             overflow: hidden;
+            padding: 10px 0;
+            text-align: center;
         }
 
         .navbar a {
-            float: left;
-            display: block;
+            display: inline-block;
             color: white;
-            text-align: center;
             padding: 14px 20px;
             text-decoration: none;
             font-size: 18px;
+            margin: 0 10px;
+            border-radius: 5px;
+            transition: background 0.3s ease;
         }
 
         .navbar a:hover {
             background-color: #005bb5;
-            color: white;
         }
 
         .navbar-right {
@@ -76,6 +78,24 @@
             border-radius: 8px;
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
         }
+        	
+        	.footer {
+    background-color: #415999;
+    color: Black;
+    text-align: center;
+    padding: 10px;
+    margin-top: 30px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+	}
+
+		.footer p {
+    font-size: 16px;
+    margin: 0;
+    color: white;
+	}
+        	
     </style>
     
 </head>
@@ -129,5 +149,10 @@
             </tr>
         <% } %>
     </table>
+    
+    	<div class="footer">
+    <p>&copy; Mega City Cab, 2015</p>
+	</div>
+    
 </body>
 </html>

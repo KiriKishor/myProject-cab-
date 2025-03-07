@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Login - Mega City Cab</title>
+    <title>Login</title>
     <style>
         /* Styles remain the same */
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
@@ -79,7 +79,7 @@
 </head>
 <body>
     <div class="login-container">
-        <h2>Login to Mega City Cab</h2>
+        <h2>Login Here</h2>
 
         <% if (request.getParameter("error") != null) { %>
             <p class="error-message"><%= request.getParameter("error") %></p>

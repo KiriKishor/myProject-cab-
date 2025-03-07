@@ -2,7 +2,7 @@
 <%@ page import="java.util.List, Bean.BookingBean" %>
 <html>
 <head>
-    <title>Booking - Mega City Cab</title>
+    <title>Booking</title>
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -10,25 +10,28 @@
             padding: 20px;
         }
 
+        
         /* Navbar Styles */
         .navbar {
-            background-color: #0072ff;
+            background-color: #415999;
             overflow: hidden;
+            padding: 10px 0;
+            text-align: center;
         }
 
         .navbar a {
-            float: left;
-            display: block;
+            display: inline-block;
             color: white;
-            text-align: center;
             padding: 14px 20px;
             text-decoration: none;
             font-size: 18px;
+            margin: 0 10px;
+            border-radius: 5px;
+            transition: background 0.3s ease;
         }
 
         .navbar a:hover {
             background-color: #005bb5;
-            color: white;
         }
 
         .navbar-right {
@@ -90,9 +93,12 @@
         <a href="help.jsp">Help</a>
         <a href="LogoutServlet" class="navbar-right">Logout</a>
     </div>
-
+<br><br><br>
 <div class="container">
     <h2>Booking Form</h2>
+    <h3> You can book here...</h3>
+    
+    <br><br><br>
     
     <form action="BookingServlet" method="post">
         <input type="text" name="username" class="input-field" placeholder="Username" required><br>
