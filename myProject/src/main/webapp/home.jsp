@@ -97,6 +97,61 @@
         .bills-table tr:hover {
             background-color: #ddd;
         }
+
+        .cancel-btn {
+            background-color: #dc3545;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        .cancel-btn:hover {
+            background-color: #c82333;
+        }
+        
+        	/* Driver Registration Form */
+        .driver-form-container {
+            width: 50%;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .driver-form-container h2 {
+            margin-bottom: 20px;
+        }
+
+        .driver-form input {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .driver-form button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s ease;
+            width: 85%;
+        }
+
+        .driver-form button:hover {
+            background-color: #0056b3;
+        }
+        
     </style>
 </head>
 <body>
@@ -132,6 +187,7 @@
                 <th>Finishing Point</th>
                 <th>Distance (km)</th>
                 <th>Amount (Rs)</th>
+                <th></th>
             </tr>
 
             <%
@@ -156,17 +212,24 @@
                             String start = rs.getString("starting_point");
                             String end = rs.getString("finishing_point");
                             double distance = rs.getDouble("distance");
-                            double amount = distance * 100; // Calculate Amount
-
-                            out.println("<tr>");
-                            out.println("<td>" + bookingNo + "</td>");
-                            out.println("<td>" + username + "</td>");
-                            out.println("<td>" + mobileNo + "</td>");
-                            out.println("<td>" + start + "</td>");
-                            out.println("<td>" + end + "</td>");
-                            out.println("<td>" + distance + " km</td>");
-                            out.println("<td>Rs. " + amount + "</td>");
-                            out.println("</tr>");
+                            double amount = distance * 100;
+            %>
+                            <tr>
+                                <td><%= bookingNo %></td>
+                                <td><%= username %></td>
+                                <td><%= mobileNo %></td>
+                                <td><%= start %></td>
+                                <td><%= end %></td>
+                                <td><%= distance %> km</td>
+                                <td>Rs. <%= amount %></td>
+                                <td>
+                                    <form method="post">
+                                        <input type="hidden" name="bookingNo" value="<%= bookingNo %>">
+                                        <button type="submit" name="cancelBooking" class="cancel-btn">Cancel</button>
+                                    </form>
+                                </td>
+                            </tr>
+            <%
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -176,9 +239,60 @@
                         if (conn != null) conn.close();
                     }
                 }
+
+                if (request.getParameter("cancelBooking") != null) {
+                    int bookingNo = Integer.parseInt(request.getParameter("bookingNo"));
+                    try {
+                        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cab", "root", "123456789");
+                        PreparedStatement ps = conn.prepareStatement("DELETE FROM bookings WHERE booking_number = ?");
+                        ps.setInt(1, bookingNo);
+                        ps.executeUpdate();
+                        response.sendRedirect("home.jsp");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
             %>
         </table>
     </div>
+    
+    		<!-- Driver Registration Form -->
+    <div class="driver-form-container">
+        <h2>We are Hiring New Drivers. You can Join Here...</h2>
+        <form class="driver-form" method="post">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="text" name="license_number" placeholder="License Number" required>
+            <input type="text" name="mobile_number" placeholder="Mobile Number" required>
+            <button type="submit" name="register_driver">Register</button>
+        </form>
 
+        <% 
+            if (request.getParameter("register_driver") != null) {
+                String username = request.getParameter("username");
+                String password = request.getParameter("password");
+                String license_number = request.getParameter("license_number");
+                String mobile_number = request.getParameter("mobile_number");
+
+                try {
+                    Class.forName("com.mysql.cj.jdbc.Driver");
+                    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cab", "root", "123456789");
+
+                    String query = "INSERT INTO newdrivers (username, password, license_number, mobile_number) VALUES (?, ?, ?, ?)";
+                    PreparedStatement ps = conn.prepareStatement(query);
+                    ps.setString(1, username);
+                    ps.setString(2, password);
+                    ps.setString(3, license_number);
+                    ps.setString(4, mobile_number);
+                    ps.executeUpdate();
+
+                    out.println("<script>alert('Driver Registered Successfully!');</script>");
+                } catch (Exception e) {
+                    out.println("<script>alert('Error: " + e.getMessage() + "');</script>");
+                }
+            }
+        %>
+    </div>
+    		
 </body>
 </html>

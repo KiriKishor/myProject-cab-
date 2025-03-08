@@ -38,7 +38,7 @@
             text-align: center;
         }
         th {
-            background-color: #007bff;
+            background-color: #28a745;
             color: white;
         }
         tr:nth-child(even) {
@@ -55,7 +55,7 @@
         }
         .back-button button {
             padding: 10px 20px;
-            background: #007bff;
+            background: #28a745;
             color: white;
             border: none;
             cursor: pointer;

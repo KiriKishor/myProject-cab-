@@ -22,6 +22,16 @@
             <servlet-name>AdminLoginServlet</servlet-name>
             <url-pattern>/AdminLoginServlet</url-pattern>
         </servlet-mapping>
+        
+         <servlet>
+        <servlet-name>NewDriverServlet</servlet-name>
+        <servlet-class>Servlet.NewDriverServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>NewDriverServlet</servlet-name>
+        <url-pattern>/NewDriverServlet</url-pattern>
+    </servlet-mapping>
 
     </web-app>
 </element>
