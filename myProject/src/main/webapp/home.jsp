@@ -85,7 +85,7 @@
         }
 
         .bills-table th {
-            background-color: #007bff;
+            background-color: #415999;
             color: white;
             font-size: 18px;
         }
@@ -137,7 +137,7 @@
         }
 
         .driver-form button {
-            background-color: #007bff;
+            background-color: #415999;
             color: white;
             padding: 12px 20px;
             font-size: 18px;
@@ -151,6 +151,23 @@
         .driver-form button:hover {
             background-color: #0056b3;
         }
+        
+        	.footer {
+    background-color: #415999;
+    color: Black;
+    text-align: center;
+    padding: 10px;
+    margin-top: 30px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+	}
+
+		.footer p {
+    font-size: 16px;
+    margin: 0;
+    color: white;
+	}
         
     </style>
 </head>
@@ -293,6 +310,10 @@
             }
         %>
     </div>
+    	
+    	<div class="footer">
+    	<p>&copy; Mega City Cab, 2015</p>
+		</div>
     		
 </body>
 </html>

@@ -100,7 +100,7 @@
         }
 
         button {
-            background: #28a745;
+            background: #415999;
             color: white;
             padding: 12px 20px;
             border: none;
