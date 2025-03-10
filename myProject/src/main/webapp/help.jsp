@@ -190,7 +190,7 @@
     <form action="HelpMessageServlet" method="post">
         <input type="text" name="name" placeholder="Your Name" required><br>
         <textarea name="message" placeholder="Your Message" rows="5" required></textarea><br>
-        <button type="submit">Send Message</button>
+        <button type="submit">Send Feedback</button>
     </form>
 </div>
 
